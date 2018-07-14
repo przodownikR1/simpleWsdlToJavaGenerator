@@ -1,0 +1,36 @@
+buildscript {
+	repositories {
+		jcenter()
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'no.nils:wsdl2java:0.10'
+	}
+}
+apply plugin: 'java'
+apply plugin: 'no.nils.wsdl2java'
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+
+}
+
+wsdl2java {
+	generatedWsdlDir = file('src/generated/java')
+	wsdlDir = file('src/main/resources/wsdl')
+	wsdlsToGenerate = [
+			["$wsdlDir/example.wsdl"]
+	]
+}
+
+processResources {
+    from ('src/main/resources') {
+        include '**/*.wsdl'
+    }
+}
